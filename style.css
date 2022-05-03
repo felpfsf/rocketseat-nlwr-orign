@@ -30,11 +30,30 @@ body {
   text-align: center;
 }
 
-header {
+.header-container {
+  background: var(--brand_light);
+  border: 1px solid salmon;
+
+  height: 7.2rem;
+  width: 37.5rem;
+
+  margin: 0 auto;
+  padding: 0 2.4rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-section {
+  background: var(--brand_light);
+
   height: 108rem;
   width: 37.5rem;
+
   margin: 0 auto;
-  background: var(--brand_light);
+  padding-top: 4rem;
 }
 
 h4 {
