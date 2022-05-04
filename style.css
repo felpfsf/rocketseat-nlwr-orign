@@ -11,54 +11,68 @@
     declarando variáveis no CSS
     --nomedavariavel: valor;
   */
-  --brand: hsl(170, 100%, 26%);
+  --brand_primary: hsl(170, 100%, 26%);
   --brand_light: hsl(148, 23%, 89%);
   --brand_light2: hsl(180, 14%, 97%);
+  --brand_green: hsl(170, 100%, 26%);
   --brand_beige: hsl(39, 100%, 97%);
   --brand_hover: hsl(170, 100%, 14%);
   --headline: hsl(210, 11%, 15%);
   --paragraph: hsl(210, 9%, 31%);
 
+  --nav_height: 7.2rem;
+
   /* -- fonts padrão -- */
   font-size: 62.5%; /*((10*100)/16)=62.5 = 10px || 1rem = 10px */
 }
+html, body {
+  width: 100%;
+  height: 100%;
+}
 
-/* -- global -- */
 body {
   font-family: 'DM Sans', sans-serif;
   font-size: 1.6rem; /* -- agora voltam a ser 16px mas numa unidade de medida não fixa -- */
   text-align: center;
+
+  overflow: overlay; /* barra de rolagem não influencia na margem */
 }
 
-.header-container {
-  background: var(--brand_light);
-  border: 1px solid salmon;
-
-  height: 7.2rem;
-  width: 37.5rem;
-
-  margin: 0 auto;
-  padding: 0 2.4rem;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+a {
+  text-decoration: none;
 }
 
-.hero-section {
-  background: var(--brand_light);
+ul {
+  list-style: none;
+}
 
-  height: 108rem;
+.wrapper {
   width: 37.5rem;
+  margin-inline: auto;
+  padding-inline: 2.4rem;
+}
 
-  margin: 0 auto;
-  padding-top: 4rem;
+/* --- header --- */
+header {
+  margin-top: calc(4.1rem + var(--nav_height));
+}
+
+header::before {
+  content: "";
+  width: 100vw; /* estende a toda a viewport horizontalmente */
+  height: calc(108rem + var(--nav_height));
+  background-color: var(--brand_light);
+  display: block;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 h4 {
   font-size: 1.4rem; /* 14px */
-  color: var(--brand);
+  color: var(--brand_primary);
   margin-bottom: 1.6rem;
 }
 
@@ -71,13 +85,14 @@ h1 {
 
 p {
   font-size: 1.8rem;
+  font-weight: 400;
   line-height: 150%;
   color: var(--paragraph);
   margin-bottom: 3.2rem;
 }
 
-button {
-  background: var(--brand);
+header button {
+  background: var(--brand_primary);
   height: 5.2rem;
   width: 26.3rem;
   margin: 0 auto 6rem;
@@ -98,42 +113,174 @@ button {
   transition: .5s all;
 }
 
-button:hover {
+header button:hover {
   background: var(--brand_hover);
 }
 
-.caixa-img {
-  /* border: 1px solid salmon; */
-  margin-bottom: -.5rem;
-  border: 0;
-  /* position: absolute; */
+header img {
+  width: 26.3rem;
+  display: block;
+  margin-inline: auto;
+  object-position: 0 2rem;
 }
 
-.caixa-numeros {
+.stats {
   background: var(--brand_beige);
   border: 1px solid var(--brand_light);
-
-  height: 47rem;
-  width: 32.7rem;
   border-radius: .6rem;
 
-  margin: 0 auto;
+  /* height: 47rem; */
+  width: 32.7rem;
+  padding-block: 4rem;
+
+  /* margin: 0 auto; */
+  margin-inline: auto;
   
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  gap: 6rem;
 }
 
-.numeros h3 {
+.stat h3 {
   color: var(--headline);
   font-size: 4.8rem;
-  font-weight: 700;
   line-height: 130%;
+  margin-bottom: .4rem;
 }
 
-.numeros p {
-  color: var(--brand);
-  font-size: 1.6rem;
+.stat p {
+  margin: 0;
+  color: var(--brand_primary);
   line-height: 150%;
+}
+
+/* --- navigation --- */
+nav {
+  display: flex;
+  
+  height: var(--nav_height);
+
+  position: fixed; /* fixa o container no topo da página */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%); /* alinha o elemento ao centro da página */
+}
+
+nav .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+nav.scroll {
+  background: var(--brand_primary);
+  width: 100vw;
+}
+
+nav.scroll svg:nth-child(1) path {
+  fill: white;
+}
+
+nav.scroll button path {
+  stroke: white;
+}
+
+
+/* --- menu expanded --- */
+body.menu-expanded {
+  overflow: hidden;
+}
+
+body.menu-expanded > :not(nav) { /* todos os itens de primeiro nível do body exceto o nav não serão apresentados na tela*/
+  display: none;
+}
+
+.menu,
+.close-menu,
+body.menu-expanded .open-menu {
+  opacity: 0;
+  visibility: hidden;
+}
+
+body.menu-expanded .menu,
+body.menu-expanded .close-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+body.menu-expanded .menu {
+  position:fixed;
+  top: 0;
+  left: 0;
+  background: var(--brand_primary);
+
+  width: 100vw;
+  height: 100vh;
+
+  padding-top: var(--nav_height);
+}
+
+body.menu-expanded nav {
+  position: relative;
+}
+.menu ul:nth-child(1) { /* vai até o social-links */
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem;
+
+  margin-top: 6rem;
+
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.1rem;
+}
+
+.menu ul li a {
+  color: var(--brand_beige);
+}
+
+.menu .button {
+  background: white;  
+  border-radius: 4rem;
+
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 2.3rem;
+
+  color: var(--brand_green);
+
+  display: inline-block;
+  padding: 1.6rem 3.2rem;
+
+  margin: 4.8rem 0 8rem;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.2rem;
+}
+
+body.menu-expanded .logo,
+body.menu-expanded nav button  {
+  position: relative;
+  z-index: 100;
+}
+
+body.menu-expanded .logo path {
+  fill: white;
+}
+
+body.menu-expanded button path {
+  stroke: white;
 }
