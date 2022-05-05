@@ -5,4 +5,4 @@ Projeto Frontend desenvolvido durante a NLW#8 da Rocketseat
 
 -----
 
-Site responsivo
+Site responsivo e com opção de acessibilidade, seu desenvolvimento parte do conceito "Mobile First" focando primeiramente nos dispositivos móveis.
