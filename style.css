@@ -1,4 +1,4 @@
-/* -- global -- */
+/* --------------- global --------------- */
 * {
   margin: 0;
   padding: 0;
@@ -11,12 +11,14 @@
     declarando variáveis no CSS
     --nomedavariavel: valor;
   */
-  --brand_primary: hsl(170, 100%, 26%);
-  --brand_light: hsl(148, 23%, 89%);
+  --hue: 300;
+
+  --brand_primary: hsl(var(--hue), 100%, 26%);
+  --brand_green: hsl(var(--hue), 100%, 26%);
+  --brand_light: hsl(calc(var(--hue)-22), 23%, 89%);
   --brand_light2: hsl(180, 14%, 97%);
-  --brand_green: hsl(170, 100%, 26%);
   --brand_beige: hsl(39, 100%, 97%);
-  --brand_hover: hsl(170, 100%, 14%);
+  --brand_hover: hsl(var(--hue), 100%, 14%);
   --headline: hsl(210, 11%, 15%);
   --paragraph: hsl(210, 9%, 31%);
 
@@ -25,6 +27,11 @@
   /* -- fonts padrão -- */
   font-size: 62.5%; /*((10*100)/16)=62.5 = 10px || 1rem = 10px */
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   width: 100%;
   height: 100%;
@@ -36,14 +43,12 @@ body {
   text-align: center;
 
   overflow: overlay; /* barra de rolagem não influencia na margem */
+
+  background-color: var(--brand_light2);
 }
 
 a {
   text-decoration: none;
-}
-
-ul {
-  list-style: none;
 }
 
 .wrapper {
@@ -52,50 +57,68 @@ ul {
   padding-inline: 2.4rem;
 }
 
-/* --- header --- */
-header {
-  margin-top: calc(4.1rem + var(--nav_height));
+ul {
+  list-style: none;
 }
 
-header::before {
-  content: "";
-  width: 100vw; /* estende a toda a viewport horizontalmente */
-  height: calc(108rem + var(--nav_height));
-  background-color: var(--brand_light);
-  display: block;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
+img {
+  max-width: 100%;
 }
 
-h4 {
-  font-size: 1.4rem; /* 14px */
-  color: var(--brand_primary);
-  margin-bottom: 1.6rem;
+section {
+  padding-block: 10rem;
 }
 
-h1 {
+section header h1 {
   font-size: 3.4rem;
   color: var(--headline);
   line-height: 130%;
+
   margin-bottom: 2.4px;
 }
 
-p {
-  font-size: 1.8rem;
-  font-weight: 400;
-  line-height: 150%;
-  color: var(--paragraph);
-  margin-bottom: 3.2rem;
+section header h2 {
+  font-size: 3rem;
+  line-height: 3.9rem;
+
+  color: var(--headline);
 }
 
-header button {
+section header h4 {
+  font-size: 1.4rem; /* 14px */
+  font-weight: 700;
+  line-height: 150%;
+  letter-spacing: 0.08rem;
+  color: var(--brand_primary);
+
+  text-transform: uppercase;
+
+  margin-bottom: 1.6rem;
+}
+
+section .content h3 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.1rem;
+  color: var(--headline);
+
+}
+
+section .content p {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.4rem;
+  color: var(--paragraph);
+}
+
+.button {
   background: var(--brand_primary);
-  height: 5.2rem;
-  width: 26.3rem;
-  margin: 0 auto 6rem;
+  
+  padding: 1.6rem 3.2rem;
+  width: fit-content; /* a largura se adapta ao conteúdo */
+
+  margin-bottom: 6rem;
+  
   border: none;
   border-radius: 4rem;
 
@@ -113,50 +136,36 @@ header button {
   transition: .5s all;
 }
 
-header button:hover {
+.button:hover {
   background: var(--brand_hover);
 }
 
-header img {
-  width: 26.3rem;
-  display: block;
-  margin-inline: auto;
-  object-position: 0 2rem;
+/* --------------- custom colors --------------- */
+#services .card circle {
+  fill: var(--brand_light);
 }
 
-.stats {
-  background: var(--brand_beige);
-  border: 1px solid var(--brand_light);
-  border-radius: .6rem;
-
-  /* height: 47rem; */
-  width: 32.7rem;
-  padding-block: 4rem;
-
-  /* margin: 0 auto; */
-  margin-inline: auto;
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  gap: 6rem;
+#navigation .logo path[fill*="#00856F"],
+#backtoTopButton circle {
+  fill: var(--brand_primary);
 }
 
-.stat h3 {
-  color: var(--headline);
-  font-size: 4.8rem;
-  line-height: 130%;
-  margin-bottom: .4rem;
+button.open-menu path[stroke*="00856F"],
+#contact li path {
+  stroke: var(--brand_primary);
 }
 
-.stat p {
-  margin: 0;
-  color: var(--brand_primary);
-  line-height: 150%;
+body.menu-expanded #navigation .logo path,
+#navigation.scroll .logo path {
+  fill: white;
 }
 
-/* --- navigation --- */
+#navigation.scroll button.open-menu path[stroke*="00856F"] {
+  fill: white;
+}
+/* --------------- fim global --------------- */
+
+/* --------------- navigation --------------- */
 nav {
   display: flex;
   
@@ -164,8 +173,9 @@ nav {
 
   position: fixed; /* fixa o container no topo da página */
   top: 0;
-  left: 50%;
-  transform: translateX(-50%); /* alinha o elemento ao centro da página */
+  width: 100vw;
+
+  z-index: 100; /* sobrepõe acima de todos */
 }
 
 nav .wrapper {
@@ -182,25 +192,25 @@ nav button {
 
 nav.scroll {
   background: var(--brand_primary);
-  width: 100vw;
 }
 
-nav.scroll svg:nth-child(1) path {
+/* nav.scroll .logo path {
   fill: white;
-}
+} */
 
-nav.scroll button path {
+/* nav.scroll button path {
   stroke: white;
-}
+} */
 
+/* --------------- menu expanded --------------- */
 
-/* --- menu expanded --- */
 body.menu-expanded {
   overflow: hidden;
 }
 
 body.menu-expanded > :not(nav) { /* todos os itens de primeiro nível do body exceto o nav não serão apresentados na tela*/
-  display: none;
+  /* display: none; */
+  visibility: hidden;
 }
 
 .menu,
@@ -216,6 +226,11 @@ body.menu-expanded .close-menu {
   visibility: visible;
 }
 
+.menu {
+  /* animação de transição do menu */
+  transform: translateY(100%);
+}
+
 body.menu-expanded .menu {
   position:fixed;
   top: 0;
@@ -226,11 +241,12 @@ body.menu-expanded .menu {
   height: 100vh;
 
   padding-top: var(--nav_height);
+
+  /* animação de transição do menu */
+  transition: transform 300ms;
+  transform: translateY(0);
 }
 
-body.menu-expanded nav {
-  position: relative;
-}
 .menu ul:nth-child(1) { /* vai até o social-links */
   display: flex;
   flex-direction: column;
@@ -264,6 +280,13 @@ body.menu-expanded nav {
   margin: 4.8rem 0 8rem;
 }
 
+.menu .button:hover {
+  background: var(--brand_green);
+  color: white;
+
+  filter: brightness(1.3);
+}
+
 .social-links {
   display: flex;
   align-items: center;
@@ -283,4 +306,197 @@ body.menu-expanded .logo path {
 
 body.menu-expanded button path {
   stroke: white;
+}
+
+/* --------------- home --------------- */
+
+#home {
+  padding-top: calc(4.1rem + var(--nav_height));
+}
+
+#home::before {
+  content: "";
+  width: 100vw; /* estende a toda a viewport horizontalmente */
+  height: calc(108rem + var(--nav_height));
+  background-color: var(--brand_light);
+  display: block;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+#home p {
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 150%;
+  color: var(--paragraph);
+
+  margin-bottom: 3.2rem;
+}
+
+#home .button {
+  margin-inline: auto;
+}
+
+#home img {
+  width: 26.3rem;
+  display: block;
+  margin-inline: auto;
+  object-position: 0 2rem;
+}
+
+#home .stats {
+  background: var(--brand_beige);
+  border: 1px solid var(--brand_light);
+  border-radius: .6rem;
+
+  /* height: 47rem; */
+  width: 32.7rem;
+  padding-block: 4rem;
+
+  /* margin: 0 auto; */
+  margin-inline: auto;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 6rem;
+}
+
+#home .stat h3 {
+  color: var(--headline);
+  font-size: 4.8rem;
+  line-height: 130%;
+  margin-bottom: .4rem;
+}
+
+#home .stat p {
+  margin: 0;
+  color: var(--brand_primary);
+  line-height: 150%;
+}
+
+/* --------------- services --------------- */
+
+#services .cards {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+#services .card {
+  text-align: left;  
+
+  padding: 2.4rem;
+
+  background: white;
+  border: 1px solid var(--brand_light);
+  border-radius: .6rem;
+
+}
+
+#services h2 {
+  margin-bottom: 6rem;
+}
+
+#services .card h3 {
+  margin-block: 1.6rem;
+}
+
+/* --------------- sobre --------------- */
+
+#about {
+  text-align: left;
+  background-color: var(--brand_beige);
+}
+
+#about header h2 {
+  margin-bottom: 2.4rem;
+}
+
+#about .content p {
+  margin: 2.4rem 0 6rem;
+}
+
+/* --------------- contato --------------- */
+
+#contact {
+  text-align: left;
+}
+
+#contact header {
+  margin-bottom: 3.2rem;
+}
+
+#contact ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;  
+
+  margin-bottom: 3.2rem;
+}
+
+#contact ul li {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+
+/* --------------- footer --------------- */
+
+footer {
+  background-color: var(--brand_green);
+  padding-block: 6rem;
+
+  text-align: left;
+
+  color: white;
+}
+
+footer .logo {
+  display: inline-block;
+  margin-bottom: 2.4rem;
+}
+
+footer .logo svg{
+  width: 23.6rem;
+  height: 3.1rem;
+}
+
+footer .logo path {
+  fill: white;  
+}
+
+footer p {
+  color: var(--brand_beige);
+  line-height: 2;
+
+  margin-bottom: 3.2rem;
+}
+
+footer .social-links {
+  justify-content: flex-start;
+}
+
+/* --------------- Back to top button --------------- */
+
+#backtoTopButton {
+  position: fixed;
+  bottom: 1rem;
+  right: 2.5rem;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(100%);
+  transition: 200ms;
+}
+
+#backtoTopButton.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
