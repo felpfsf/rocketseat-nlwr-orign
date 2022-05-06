@@ -2,7 +2,7 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 :root {
@@ -14,25 +14,28 @@
   --hue: 190;
 
   --brand_primary: hsl(var(--hue), 100%, 26%);
+
   --brand_green: hsl(var(--hue), 100%, 26%);
   --brand_light: hsl(calc(var(--hue) - 22), 23%, 89%);
-  --brand_light2: hsl(180, 14%, 97%);
+  --brand_light2: hsl(calc(var(--hue) + 10), 14%, 97%);
   --brand_beige: hsl(39, 100%, 97%);
   --brand_hover: hsl(var(--hue), 100%, 14%);
+
   --headline: hsl(210, 11%, 15%);
   --paragraph: hsl(210, 9%, 31%);
 
   --nav_height: 7.2rem;
 
   /* -- fonts padrão -- */
-  font-size: 62.5%; /*((10*100)/16)=62.5 = 10px || 1rem = 10px */
+  font-size: 62.5%; /* ((10*100)/16) = 62.5 = 10px || 1rem = 10px */
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
 }
@@ -52,7 +55,11 @@ a {
 }
 
 .wrapper {
-  width: 37.5rem;
+  /* width: 37.5rem; */
+  width: min(
+    50rem,
+    100%
+  ); /* Nessa alteração o conteúdo se ajustará até 499px ocupando 100% do body */
   margin-inline: auto;
   padding-inline: 2.4rem;
 }
@@ -101,7 +108,6 @@ section .content h3 {
   font-weight: 700;
   line-height: 3.1rem;
   color: var(--headline);
-
 }
 
 section .content p {
@@ -113,12 +119,12 @@ section .content p {
 
 .button {
   background: var(--brand_primary);
-  
+
   padding: 1.6rem 3.2rem;
   width: fit-content; /* a largura se adapta ao conteúdo */
 
   margin-bottom: 6rem;
-  
+
   border: none;
   border-radius: 4rem;
 
@@ -127,13 +133,13 @@ section .content p {
   justify-content: center;
   gap: 1.6rem;
 
-  color: #ffffff;  
+  color: #ffffff;
   font-size: 1.4rem;
   font-weight: 700;
   text-transform: uppercase;
 
   cursor: pointer;
-  transition: .5s all;
+  transition: 0.5s all;
 }
 
 .button:hover {
@@ -168,7 +174,7 @@ body.menu-expanded #navigation .logo path,
 /* --------------- navigation --------------- */
 nav {
   display: flex;
-  
+
   height: var(--nav_height);
 
   position: fixed; /* fixa o container no topo da página */
@@ -194,6 +200,11 @@ nav.scroll {
   background: var(--brand_primary);
 }
 
+nav .menu,
+nav .close-menu {
+  position: fixed;
+}
+
 /* nav.scroll .logo path {
   fill: white;
 } */
@@ -208,7 +219,8 @@ body.menu-expanded {
   overflow: hidden;
 }
 
-body.menu-expanded > :not(nav) { /* todos os itens de primeiro nível do body exceto o nav não serão apresentados na tela*/
+body.menu-expanded > :not(nav) {
+  /* todos os itens de primeiro nível do body exceto o nav não serão apresentados na tela*/
   /* display: none; */
   visibility: hidden;
 }
@@ -232,7 +244,7 @@ body.menu-expanded .close-menu {
 }
 
 body.menu-expanded .menu {
-  position:fixed;
+  /* position:fixed; */
   top: 0;
   left: 0;
   background: var(--brand_primary);
@@ -247,7 +259,8 @@ body.menu-expanded .menu {
   transform: translateY(0);
 }
 
-.menu ul:nth-child(1) { /* vai até o social-links */
+.menu ul:nth-child(1) {
+  /* vai até o social-links */
   display: flex;
   flex-direction: column;
   gap: 4.8rem;
@@ -264,7 +277,7 @@ body.menu-expanded .menu {
 }
 
 .menu .button {
-  background: white;  
+  background: white;
   border-radius: 4rem;
 
   font-size: 1.8rem;
@@ -295,7 +308,7 @@ body.menu-expanded .menu {
 }
 
 body.menu-expanded .logo,
-body.menu-expanded nav button  {
+body.menu-expanded nav button {
   position: relative;
   z-index: 100;
 }
@@ -311,13 +324,14 @@ body.menu-expanded button path {
 /* --------------- home --------------- */
 
 #home {
+  padding-block: 0;
   padding-top: calc(4.1rem + var(--nav_height));
 }
 
 #home::before {
-  content: "";
+  content: '';
   width: 100vw; /* estende a toda a viewport horizontalmente */
-  height: calc(108rem + var(--nav_height));
+  height: calc(76% + var(--nav_height));
   background-color: var(--brand_light);
   display: block;
 
@@ -350,15 +364,16 @@ body.menu-expanded button path {
 #home .stats {
   background: var(--brand_beige);
   border: 1px solid var(--brand_light);
-  border-radius: .6rem;
+  border-radius: 0.6rem;
 
   /* height: 47rem; */
-  width: 32.7rem;
+  /* width: 32.7rem; */
+  width: 100%; /* vai acompanhar até os 500px e se ficar menor irá se ajustar automaticamente */
   padding-block: 4rem;
 
   /* margin: 0 auto; */
   margin-inline: auto;
-  
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -370,7 +385,7 @@ body.menu-expanded button path {
   color: var(--headline);
   font-size: 4.8rem;
   line-height: 130%;
-  margin-bottom: .4rem;
+  margin-bottom: 0.4rem;
 }
 
 #home .stat p {
@@ -388,14 +403,13 @@ body.menu-expanded button path {
 }
 
 #services .card {
-  text-align: left;  
+  text-align: left;
 
   padding: 2.4rem;
 
   background: white;
   border: 1px solid var(--brand_light);
-  border-radius: .6rem;
-
+  border-radius: 0.6rem;
 }
 
 #services h2 {
@@ -434,7 +448,7 @@ body.menu-expanded button path {
 #contact ul {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;  
+  gap: 1.6rem;
 
   margin-bottom: 3.2rem;
 }
@@ -442,7 +456,7 @@ body.menu-expanded button path {
 #contact ul li {
   display: flex;
   align-items: center;
-  gap: .8rem;
+  gap: 0.8rem;
 }
 
 /* --------------- footer --------------- */
@@ -461,13 +475,13 @@ footer .logo {
   margin-bottom: 2.4rem;
 }
 
-footer .logo svg{
+footer .logo svg {
   width: 23.6rem;
   height: 3.1rem;
 }
 
 footer .logo path {
-  fill: white;  
+  fill: white;
 }
 
 footer p {
@@ -499,4 +513,277 @@ footer .social-links {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+/* --------------- responsivo --------------- */
+
+@media (min-width: 1024px) {
+  /* --------------- global --------------- */
+  /* body {
+    overflow: auto;
+  } */
+
+  .wrapper {
+    width: min(112rem, 100%); /*até 1120px o menu irá crescer*/
+    display: grid;
+  }
+
+  .col-a {
+    grid-area: A;
+  }
+
+  .col-b {
+    grid-area: B;
+  }
+
+  section {
+    padding-block: 16rem;
+  }
+
+  section header h2 {
+    font-size: 4rem;
+    line-height: 5.2rem;
+  }
+
+  /* --------------- navigation --------------- */
+
+  /* reset */
+  nav#navigation .wrapper * {
+    margin: 0;
+    padding: 0;
+    visibility: initial;
+    display: initial;
+    opacity: initial;
+    flex-direction: initial;
+    position: initial;
+    font-size: initial;
+    font-weight: initial;
+    transform: initial;
+    color: initial;
+    background-color: initial;
+  }
+
+  nav#navigation .open-menu,
+  nav#navigation .close-menu,
+  nav#navigation .social-links {
+    display: none;
+  }
+
+  nav#navigation .menu {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  nav#navigation .menu ul:nth-child(1) {
+    display: flex;
+    gap: 3.2rem;
+  }
+
+  nav#navigation .menu ul li a {
+    color: var(--brand_primary);
+    opacity: 0.7;
+  }
+
+  nav#navigation .menu a.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.4rem;
+
+    border: 1px solid var(--brand_primary);
+    border-radius: 4rem;
+
+    color: var(--brand_primary);
+
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    text-transform: uppercase;
+  }
+
+  nav#navigation .menu a.button:hover {
+    background-color: var(--brand_primary);
+    border: none;
+    color: white;
+  }
+
+  nav#navigation.scroll .menu ul li a {
+    color: var(--brand_light2);
+    opacity: 0.6;
+  }
+
+  nav#navigation.scroll .menu a.button {
+    border-color: white;
+    color: white;
+  }
+
+  nav#navigation .menu li a {
+    transition: opacity 0.4s;
+  }
+
+  nav#navigation .menu li a.active,
+  nav#navigation .menu li a:hover {
+    opacity: 1;
+    font-weight: 700;
+  }
+
+  nav#navigation .menu li a::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background-color: var(--brand_primary);
+
+    position: relative;
+    bottom: -2rem;
+    left: -0.5rem;
+
+    display: block;
+
+    transition: width 0.2s;
+  }
+
+  nav#navigation.scroll .menu li a::after {
+    background-color: white;
+  }
+
+  nav#navigation .menu li a:active::after,
+  nav#navigation .menu li a:hover::after {
+    padding-inline: 0.8rem;
+    width: 100%;
+  }
+
+  nav#navigation.scroll .menu li a.active,
+  nav#navigation.scroll .menu li a:hover {
+    opacity: 1;
+  }
+
+  nav#navigation.scroll .menu a.button.active,
+  nav#navigation.scroll .menu a.button:hover {
+    background-color: var(--brand_primary);
+    filter: brightness(1.3);
+    border: none;
+  }
+
+  /* --------------- home --------------- */
+  #home::before {
+    height: calc(96% - var(--nav_height));
+  }
+  #home {
+    padding-top: var(--nav_height);
+  }
+  #home .wrapper {
+    grid-template-columns: 60.5rem 1fr;
+    grid-template-areas:
+      'A B'
+      'C C';
+  }
+
+  #home .col-a {
+    align-self: center;
+    text-align: left;
+  }
+
+  #home h1 {
+    font-size: 5.2rem;
+  }
+
+  #home p {
+    font-size: 1.8rem;
+  }
+
+  #home .stats {
+    grid-area: C;
+
+    flex-direction: row;
+    padding: 6rem;
+    gap: 0;
+  }
+
+  #home .stats .stat + .stat {
+    border-left: 1px solid var(--brand_primary);
+  }
+
+  #home .stats .stat {
+    flex: 1;
+  }
+
+  #home .button {
+    margin: 0;
+  }
+
+  #home img {
+    width: 42rem;
+  }
+
+  /* --------------- services --------------- */
+
+  #services h2 {
+    width: 47rem;
+    margin-inline: auto;
+  }
+
+  #services .cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4rem;
+  }
+
+  #services .card {
+    width: 30%;
+    flex-grow: 1;
+  }
+
+  /* --------------- about --------------- */
+  #about .wrapper {
+    grid-template-columns: 48rem 1fr;
+    grid-template-areas: 'B A';
+    gap: 6.7rem;
+  }
+
+  #about .col-a {
+    align-self: center;
+  }
+
+  #about .content p {
+    margin-bottom: 0;
+  }
+
+  /* --------------- contact --------------- */
+
+  #contact .wrapper {
+    grid-template-columns: 1fr 57.5rem;
+    grid-template-areas: 'A B';
+  }
+
+  #contact h2 {
+    width: 40.4rem;
+  }
+
+  /* --------------- footer --------------- */
+  footer {
+    padding-block: 8rem;
+  }
+  
+  footer .wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'A B';
+  }
+
+  footer .col-a {
+    align-self: center;
+  }
+
+
+  footer .col-b {
+    align-self: center;
+    justify-self: flex-end;
+  }
+
+  footer p {
+    margin-bottom: 0
+  }
+
+
 }
