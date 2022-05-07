@@ -24,4 +24,5 @@ Durante a NLW Return promovida pela Rocketseat, foi desenvolvido um projeto de u
 
 ---
 
+#### Developed by Felipe F.
 
