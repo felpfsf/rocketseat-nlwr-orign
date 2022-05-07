@@ -9,10 +9,7 @@
       <img src="https://img.shields.io/github/last-commit/felpfsf/rocketseat-nlwr-orign">
       <img src="https://img.shields.io/github/languages/count/felpfsf/rocketseat-nlwr-orign">
       <img src="https://img.shields.io/github/languages/top/felpfsf/rocketseat-nlwr-orign">
-  </div>
-  
-[![Netlify Status](https://api.netlify.com/api/v1/badges/2e4320df-c6d5-49a9-bf19-4826ce369e45/deploy-status)](https://app.netlify.com/sites/nlwr-doctorcare/deploys)
-  
+  </div> 
 </div>
 
 ## Projeto Frontend desenvolvido durante a NLW Return da Rocketseat
